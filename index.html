@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -96,7 +96,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.3',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -190,16 +190,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-����"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -242,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/Hello-world-0/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/UVA - 10382 Watering Grass （贪心+区间覆盖）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chook">
@@ -261,7 +251,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/22/Hello-world-0/" itemprop="url">Hello world</a></h1>
+                <a class="post-title-link" href="/2017/10/22/UVA - 10382 Watering Grass （贪心+区间覆盖）/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -273,7 +263,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T13:40:01+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T14:53:00+08:00">
                 2017-10-22
               </time>
             
@@ -313,7 +303,8 @@
       
         
           
-            
+            <p><a href="https://vjudge.net/problem/UVA-10382%20%E4%BC%A0%E9%80%81%E9%97%A8" target="_blank" rel="external">传送门</a><br>题目大意：<br>给出长为l,宽为w的一块长方形草地。草地上有n个喷头，给出每个喷头的圆心坐标及半径。求解最少需要多少喷头覆盖整个长方形。<br>思路：<br><strong>将圆形区间转化成长方形区间。每个圆与草地相交的四个点为长方形的四个顶点。然后贪心求解。</strong><br>附上AC代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream&gt;</div><div class="line">#include&lt;algorithm&gt;</div><div class="line">#include&lt;cmath&gt;</div><div class="line"></div><div class="line">using namespace std;</div><div class="line">const int maxn = 10000 + 5;</div><div class="line">double n;</div><div class="line">double l, w;</div><div class="line">struct nodes &#123;</div><div class="line">    double l, r;</div><div class="line">&#125;node[maxn];</div><div class="line"></div><div class="line">bool cmp(nodes a, nodes b) &#123;</div><div class="line">    return a.l &lt; b.l;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main() &#123;</div><div class="line">    ios::sync_with_stdio(false);</div><div class="line">    while(cin &gt;&gt; n &gt;&gt; l &gt;&gt; w) &#123;</div><div class="line">        int cnt = 0;</div><div class="line">        double o, r;</div><div class="line">        for(int i = 0; i &lt; n; i++) &#123;</div><div class="line">            cin &gt;&gt; o &gt;&gt; r;</div><div class="line">            if(r * 2 &lt; w) continue;</div><div class="line">            else &#123;</div><div class="line">                double t = sqrt( r * r - (w / 2) * (w / 2) );</div><div class="line">                node[cnt].l = o - t;</div><div class="line">                node[cnt++].r = o + t;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        sort(node, node + cnt, cmp);</div><div class="line">        if(node[0].l &gt; 0) &#123;</div><div class="line">            cout &lt;&lt; -1 &lt;&lt; endl;</div><div class="line">            continue;</div><div class="line">        &#125;</div><div class="line">        int ans = 0;</div><div class="line">        double tmp = 0, ln = 0;</div><div class="line">        while(ln &lt; l) &#123;</div><div class="line">            tmp = ln;</div><div class="line">            for(int i = 0; i &lt; cnt; i++)</div><div class="line">                if(node[i].l &lt;= ln &amp;&amp; node[i].r &gt; tmp)</div><div class="line">                    tmp = node[i].r;</div><div class="line">            if(tmp == ln) &#123;</div><div class="line">                ans = -1;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">            ln = tmp;</div><div class="line">            ans++;</div><div class="line">        &#125;</div><div class="line">        cout &lt;&lt; ans &lt;&lt; endl;</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
           
         
       
@@ -361,7 +352,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/ADT - 顺序表(Squencial List)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chook">
@@ -380,7 +371,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/22/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2017/10/22/ADT - 顺序表(Squencial List)/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -392,7 +383,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T11:17:58+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T14:50:10+08:00">
                 2017-10-22
               </time>
             
@@ -432,15 +423,369 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+            <p><strong>仅供参考</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div></pre></td><td class="code"><pre><div class="line">//ADT  Squencial List</div><div class="line">#include&lt;iostream&gt;</div><div class="line"></div><div class="line"></div><div class="line">#define		TRUE				1</div><div class="line">#define		FALSE				0	</div><div class="line">#define		OK					1</div><div class="line">#define		ERROR				0</div><div class="line">#define		OVERFLOW			-1</div><div class="line">#define		LISTINICIALSIZE		100</div><div class="line">#define		LISTINCREASE		10</div><div class="line"></div><div class="line"></div><div class="line">using namespace std;</div><div class="line"></div><div class="line"></div><div class="line">typedef int ElemType;</div><div class="line">typedef	int Status;</div><div class="line"></div><div class="line"></div><div class="line">typedef struct Sq_List &#123;</div><div class="line">	ElemType *elem;	//首地址</div><div class="line">	int listLength;	//表长</div><div class="line">	int listSize;	//表容量</div><div class="line">&#125;SqList;</div><div class="line"></div><div class="line"></div><div class="line">//创建顺序表</div><div class="line">Status ListCreater_Sq(SqList &amp;L) &#123;</div><div class="line">	L.elem = (ElemType *)malloc(sizeof(ElemType) * LISTINICIALSIZE);</div><div class="line">	if (!L.elem) exit(OVERFLOW);</div><div class="line">	L.listLength = 0;</div><div class="line">	L.listSize = LISTINICIALSIZE;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//清空顺序表</div><div class="line">Status ListClear_Sq(SqList &amp;L) &#123;</div><div class="line">	L.listLength = 0;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//销毁顺序表</div><div class="line">Status ListFree_Sq(SqList &amp;L) &#123;</div><div class="line">	free(L.elem);</div><div class="line">	L.listLength = L.listSize = 0;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//表容量增加</div><div class="line">void ListIncrease_Sq(SqList &amp;L) &#123;</div><div class="line">	L.elem = (ElemType *)realloc(L.elem, sizeof(ElemType) * (L.listLength + LISTINCREASE));</div><div class="line">	L.listSize += LISTINCREASE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//线性表输入</div><div class="line">void ListInput_Sq(SqList &amp;L) &#123;</div><div class="line">	int len;</div><div class="line">	cin &gt;&gt; len;</div><div class="line">	if (len &gt;= L.listSize) &#123;</div><div class="line">		ListIncrease_Sq(L);</div><div class="line">	&#125;</div><div class="line">	for (int i = 1; i &lt;= len; i++) &#123;</div><div class="line">		cin &gt;&gt; *(L.elem + i - 1);</div><div class="line">	&#125;</div><div class="line">	L.listLength = len;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//线性表插入元素</div><div class="line">Status ListInsert_Sq(SqList &amp;L, int pos, ElemType e) &#123;</div><div class="line">	int len = L.listLength;</div><div class="line">	if (pos &lt;= 0 || pos &gt; len + 1) return ERROR;</div><div class="line">	if (L.listLength &gt;= L.listSize) &#123;</div><div class="line">		ListIncrease_Sq(L);</div><div class="line">	&#125;</div><div class="line">	for (int i = len + 1; i &gt;= pos; i--) &#123;</div><div class="line">		*(L.elem + i) = *(L.elem + i - 1);</div><div class="line">	&#125;</div><div class="line">	*(L.elem + pos - 1) = e;</div><div class="line">	L.listLength++;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//线性表删除元素</div><div class="line">Status ListDelete_Sq(SqList &amp;L, int pos, ElemType &amp;e) &#123;</div><div class="line">	int len = L.listLength;</div><div class="line">	if (pos &lt;= 0 || pos &gt; L.listLength) return ERROR;</div><div class="line">	e = *(L.elem + pos - 1);</div><div class="line">	for (int i = pos - 1; i &lt; L.listLength; i++) &#123;</div><div class="line">		*(L.elem + i) = *(L.elem + i + 1);</div><div class="line">	&#125;</div><div class="line">	L.listLength--;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//线性表改值</div><div class="line">Status ListSetVal_Sq(SqList &amp;L, int pos, ElemType e) &#123;</div><div class="line">	if (pos &gt; L.listLength || pos &lt;= 0) return ERROR;</div><div class="line">	*(L.elem + pos - 1) = e;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//线性表逆序</div><div class="line">void ListReverse_Sq(SqList &amp;L) &#123;</div><div class="line">	int len = L.listLength;</div><div class="line">	for (int i = 1; i &lt;= len / 2; i++) &#123;</div><div class="line">		ElemType tmp;</div><div class="line">		tmp = *(L.elem + i - 1);</div><div class="line">		*(L.elem + i - 1) = *(L.elem + len - i);</div><div class="line">		*(L.elem + len - i) = tmp;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">//线性表元素排序 (&lt;)</div><div class="line">void ListSort_Sq(SqList &amp;L) &#123;</div><div class="line">	int len = L.listLength;</div><div class="line">	int j;</div><div class="line">	for (int i = 2; i &lt;= len; i++) &#123;</div><div class="line">		ElemType t = *(L.elem + i - 1);</div><div class="line">		for (j = i - 1; j &gt;= 1 &amp;&amp; *(L.elem + j - 1) &gt; t; j--) &#123;</div><div class="line">			*(L.elem + j) = *(L.elem + j - 1);</div><div class="line">		&#125;</div><div class="line">		*(L.elem + j) = t;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//线性表锁定元素位置</div><div class="line">int ListLocate_Sq(SqList &amp;L, ElemType e) &#123;</div><div class="line">	int len = L.listLength;</div><div class="line">	for (int i = 1; i &lt;= len; i++) &#123;</div><div class="line">		if (*(L.elem + i - 1) == e)</div><div class="line">			return i;</div><div class="line">	&#125;</div><div class="line">	return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//判断表空</div><div class="line">Status IsEmpty_Sq(SqList &amp;L) &#123;</div><div class="line">	if (L.listLength == 0)</div><div class="line">		return TRUE;</div><div class="line">	return FALSE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//线性表查找元素个数</div><div class="line">int ListCount_Sq(SqList &amp;L, ElemType e) &#123;</div><div class="line">	int len = L.listLength;</div><div class="line">	int cnt = 0;</div><div class="line">	for (int i = 1; i &lt;= len; i++) &#123;</div><div class="line">		if (*(L.elem + i - 1) == e)</div><div class="line">			cnt++;</div><div class="line">	&#125;</div><div class="line">	return cnt;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//返回表长</div><div class="line">int ListLength_Sq(SqList &amp;L) &#123;</div><div class="line">	return L.listLength;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//返回表容量</div><div class="line">int ListSize_Sq(SqList &amp;L) &#123;</div><div class="line">	return L.listSize;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//线性表遍历输出</div><div class="line">void ListPrint_Sq(SqList &amp;L) &#123;</div><div class="line">	for (int i = 1; i &lt;= L.listLength; i++) &#123;</div><div class="line">		if (i == 1)</div><div class="line">			cout &lt;&lt; *(L.elem + i - 1);</div><div class="line">		else</div><div class="line">			cout &lt;&lt; &apos; &apos; &lt;&lt; *(L.elem + i - 1);</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/ADT - 单链表(Linked List)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chook's Dream">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/22/ADT - 单链表(Linked List)/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T14:49:20+08:00">
+                2017-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>仅供参考</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div></pre></td><td class="code"><pre><div class="line">//ADT  Linked List</div><div class="line">#include&lt;iostream&gt;</div><div class="line"></div><div class="line">#define		TRUE				1</div><div class="line">#define		FALSE				0	</div><div class="line">#define		OK					1</div><div class="line">#define		ERROR				0</div><div class="line">#define		OVERFLOW			-1</div><div class="line"></div><div class="line">using namespace std;</div><div class="line"></div><div class="line">typedef int ElemType;</div><div class="line">typedef	int Status;</div><div class="line"></div><div class="line">typedef struct LNode &#123;</div><div class="line">	ElemType data;	//元素值</div><div class="line">	struct LNode *next;//后继元素的地址</div><div class="line">&#125;LNode, *LinkList;</div><div class="line"></div><div class="line">//创建单链表</div><div class="line">Status ListCreater_L(LinkList &amp;L) &#123;</div><div class="line">	LNode *curPtr;</div><div class="line">	curPtr = (LNode *)malloc(sizeof(LNode));</div><div class="line">	if (!curPtr)exit(OVERFLOW);</div><div class="line">	L = curPtr;</div><div class="line">	L-&gt;next = NULL;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//清空单链表</div><div class="line">Status ListClear_L(LinkList &amp;L) &#123;</div><div class="line">	L-&gt;next = NULL;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//销毁单链表</div><div class="line">Status ListFree_L(LinkList &amp;L) &#123;</div><div class="line">	free(L-&gt;next);</div><div class="line">	L-&gt;next = NULL;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//单链表输入</div><div class="line">Status ListInput_L(LinkList &amp;L) &#123;</div><div class="line">	int len, val;</div><div class="line">	LNode * reerPtr, *curPtr;</div><div class="line">	reerPtr = L;</div><div class="line">	cin &gt;&gt; len;</div><div class="line">	while (len--) &#123;</div><div class="line">		cin &gt;&gt; val;</div><div class="line">		curPtr = (LNode *)malloc(sizeof(LNode));</div><div class="line">		if (!curPtr)exit(OVERFLOW);</div><div class="line">		curPtr-&gt;data = val;</div><div class="line">		curPtr-&gt;next = NULL;</div><div class="line">		reerPtr-&gt;next = curPtr;</div><div class="line">		reerPtr = reerPtr-&gt;next;</div><div class="line">	&#125;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//单链表遍历输出</div><div class="line">void ListPrint_L(LinkList &amp;L) &#123;</div><div class="line">	LNode *curPtr;</div><div class="line">	curPtr = L-&gt;next;</div><div class="line">	while (curPtr) &#123;</div><div class="line">		if (curPtr == L-&gt;next) &#123;</div><div class="line">			cout &lt;&lt; curPtr-&gt;data;</div><div class="line">		&#125;</div><div class="line">		else cout &lt;&lt; &apos; &apos; &lt;&lt; curPtr-&gt;data;</div><div class="line">		curPtr = curPtr-&gt;next;</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; endl;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//单链表插入元素</div><div class="line">Status ListInsert_L(LinkList &amp;L, int pos, ElemType e) &#123;</div><div class="line">	if (pos &lt;= 0) return ERROR;</div><div class="line">	LNode *curPtr, *reerPtr, *tmpPtr;</div><div class="line">	curPtr = L-&gt;next;</div><div class="line">	reerPtr = L;</div><div class="line">	int cnt = 1;</div><div class="line">	while (curPtr &amp;&amp; cnt &lt; pos) &#123;</div><div class="line">		curPtr = curPtr-&gt;next;</div><div class="line">		reerPtr = reerPtr-&gt;next;</div><div class="line">		cnt++;</div><div class="line">	&#125;</div><div class="line">	if (cnt &lt; pos) return ERROR;</div><div class="line">	tmpPtr = (LNode *)malloc(sizeof(LNode));</div><div class="line">	if (!tmpPtr)exit(OVERFLOW);</div><div class="line">	tmpPtr-&gt;data = e;</div><div class="line">	tmpPtr-&gt;next = curPtr;</div><div class="line">	reerPtr-&gt;next = tmpPtr;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//单链表删除元素</div><div class="line">Status ListDelete_L(LinkList &amp;L, int pos, ElemType &amp;e) &#123;</div><div class="line">	if (pos &lt;= 0) return ERROR;</div><div class="line">	LNode *curPtr, *reerPtr;</div><div class="line">	curPtr = L-&gt;next;</div><div class="line">	reerPtr = L;</div><div class="line">	int cnt = 1;</div><div class="line">	while (curPtr &amp;&amp; cnt &lt; pos) &#123;</div><div class="line">		curPtr = curPtr-&gt;next;</div><div class="line">		reerPtr = reerPtr-&gt;next;</div><div class="line">		cnt++;</div><div class="line">	&#125;</div><div class="line">	if (cnt &lt; pos || !curPtr) return ERROR;</div><div class="line">	e = curPtr-&gt;data;</div><div class="line">	reerPtr-&gt;next = curPtr-&gt;next;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//单链表改值</div><div class="line">Status ListSetVal_L(LinkList &amp;L, int pos, ElemType e) &#123;</div><div class="line">	if (pos &lt;= 0) return ERROR;</div><div class="line">	LNode *curPtr;</div><div class="line">	curPtr = L-&gt;next;</div><div class="line">	int cnt = 1;</div><div class="line">	while (curPtr &amp;&amp; cnt &lt; pos) &#123;</div><div class="line">		curPtr = curPtr-&gt;next;</div><div class="line">		cnt++;</div><div class="line">	&#125;</div><div class="line">	if (cnt &lt; pos || !curPtr)return ERROR;</div><div class="line">	curPtr-&gt;data = e;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//单链表逆序</div><div class="line">void ListReverse_L(LinkList &amp;L) &#123;</div><div class="line">	LNode *curPtr, *nextPtr;</div><div class="line">	curPtr = L-&gt;next;</div><div class="line">	nextPtr = curPtr-&gt;next;</div><div class="line">	while (nextPtr) &#123;</div><div class="line">		curPtr-&gt;next = nextPtr-&gt;next;</div><div class="line">		nextPtr-&gt;next = L-&gt;next;</div><div class="line">		L-&gt;next = nextPtr;</div><div class="line">		nextPtr = curPtr-&gt;next;</div><div class="line">		ListPrint_L(L);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">////线性表元素排序 (&lt;)</div><div class="line">//void ListSort_Sq(SqList &amp;L) &#123;</div><div class="line">//	int len = L.listLength;</div><div class="line">//	int j;</div><div class="line">//	for (int i = 2; i &lt;= len; i++) &#123;</div><div class="line">//		ElemType t = *(L.elem + i - 1);</div><div class="line">//		for (j = i - 1; j &gt;= 1 &amp;&amp; *(L.elem + j - 1) &gt; t; j--) &#123;</div><div class="line">//			*(L.elem + j) = *(L.elem + j - 1);</div><div class="line">//		&#125;</div><div class="line">//		*(L.elem + j) = t;</div><div class="line">//	&#125;</div><div class="line">//&#125;</div><div class="line"></div><div class="line">//单链表锁定元素位置</div><div class="line">int ListLocate_L(LinkList &amp;L, ElemType e) &#123;</div><div class="line">	LNode *curPtr;</div><div class="line">	curPtr = L-&gt;next;</div><div class="line">	int cur = 1;</div><div class="line">	while(curPtr)&#123;</div><div class="line">		if (curPtr-&gt;data == e)</div><div class="line">			return cur;</div><div class="line">		cur++;</div><div class="line">		curPtr = curPtr-&gt;next;</div><div class="line">	&#125;</div><div class="line">	return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//判断表空</div><div class="line">Status IsEmpty_L(LinkList &amp;L) &#123;</div><div class="line">	if (!L-&gt;next)</div><div class="line">		return TRUE;</div><div class="line">	return FALSE;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//单链表查找元素个数</div><div class="line">int ListCount_L(LinkList &amp;L, ElemType e) &#123;</div><div class="line">	int cnt = 0;</div><div class="line">	LNode *curPtr;</div><div class="line">	curPtr = L-&gt;next;</div><div class="line">	while(curPtr)&#123;</div><div class="line">		if (curPtr-&gt;data == e)</div><div class="line">			cnt++;</div><div class="line">		curPtr = curPtr-&gt;next;</div><div class="line">	&#125;</div><div class="line">	return cnt;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//返回表长</div><div class="line">int ListLength_L(LinkList &amp;L) &#123;</div><div class="line">	int len = 0;</div><div class="line">	LNode *curPtr = L-&gt;next;</div><div class="line">	while (curPtr) &#123;</div><div class="line">		len++;</div><div class="line">		curPtr = curPtr-&gt;next;</div><div class="line">	&#125;</div><div class="line">	return len;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/ADT - 栈(Stack)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chook's Dream">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/22/ADT - 栈(Stack)/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T14:48:20+08:00">
+                2017-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>仅供参考</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div></pre></td><td class="code"><pre><div class="line">/ADT SqStack</div><div class="line">#include&lt;iostream&gt;</div><div class="line"></div><div class="line">#define		TRUE			1</div><div class="line">#define		FALSE			0</div><div class="line">#define		OK				1</div><div class="line">#define		ERROR			0</div><div class="line">#define		OVERFLOW		-1</div><div class="line">#define		INITLENGTH		100</div><div class="line">#define		INCREASESIZE	10</div><div class="line"></div><div class="line">using namespace std;</div><div class="line">typedef int SElemType;</div><div class="line">typedef int Status;</div><div class="line"></div><div class="line">typedef struct &#123;</div><div class="line">	SElemType *base;//栈底地址</div><div class="line">	SElemType *top;//栈顶地址</div><div class="line">	int stacksize;//栈容量</div><div class="line">&#125;SqStack;</div><div class="line"></div><div class="line">//初始化空栈</div><div class="line">Status InitStack(SqStack &amp;S) &#123;</div><div class="line">	S.base = (SElemType *)malloc(sizeof(SElemType) * INITLENGTH);</div><div class="line">	if (!S.base)exit(OVERFLOW);</div><div class="line">	S.top = S.base;</div><div class="line">	S.stacksize = INITLENGTH;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//清空栈</div><div class="line">Status ClearStack(SqStack &amp;S) &#123;</div><div class="line">	S.top = S.base;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//销毁栈</div><div class="line">Status DestroyStack(SqStack&amp; S) &#123;</div><div class="line">	free(S.base);</div><div class="line">	S.top = S.base = NULL;</div><div class="line">	S.stacksize = 0;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//栈扩容</div><div class="line">void IncStackSize(SqStack &amp;S) &#123;</div><div class="line">	S.base = (SElemType *)realloc(S.base, sizeof(SElemType)*(S.stacksize + INCREASESIZE));</div><div class="line">	S.stacksize += INCREASESIZE;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//压栈</div><div class="line">Status Push(SqStack &amp;S, SElemType e) &#123;</div><div class="line">	if (S.stacksize == S.top - S.base)</div><div class="line">		IncStackSize(S);</div><div class="line">	*(S.top++) = e;</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//出栈</div><div class="line">Status Pop(SqStack &amp;S, SElemType &amp;e) &#123;</div><div class="line">	if (S.top == S.base) return ERROR;</div><div class="line">	e = *(--S.top);</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//判栈空</div><div class="line">Status IsEmpty(SqStack &amp;S) &#123;</div><div class="line">	return S.top == S.base ? TRUE : FALSE;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//返回栈深</div><div class="line">int StackLength(SqStack &amp;S) &#123;</div><div class="line">	return S.top - S.base;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//获取栈顶元素</div><div class="line">Status GetTop(SqStack &amp;S, SElemType &amp;e) &#123;</div><div class="line">	if (S.top == S.base)return ERROR;</div><div class="line">	e = *(S.top - 1);</div><div class="line">	return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//栈元素遍历输出</div><div class="line">Status StackPrint(SqStack &amp;S) &#123;</div><div class="line">	if (S.top == S.base)return ERROR;</div><div class="line">	SElemType *curPtr;</div><div class="line">	curPtr = S.base;</div><div class="line">	while(curPtr &lt; S.top) &#123;</div><div class="line">		if (curPtr == S.base)cout &lt;&lt; *(curPtr);</div><div class="line">		else cout &lt;&lt; &apos; &apos; &lt;&lt; *(curPtr);</div><div class="line">		curPtr++;</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; endl;</div><div class="line">	return OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/3xian之所在【转】/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chook's Dream">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/22/3xian之所在【转】/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T14:39:50+08:00">
+                2017-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>文章读罢，不觉趣味。自知才疏学浅，藏之，日后来鉴。</p>
+<p>最后一天，漫天飘起了雪花，假装欢送我离去。<br>这次WF之战不太顺利，早期的C题大概花了1秒钟构思，然而由于输出格式多了一个空格直到两个半小时才逃脱Wrong Answer的纠缠。还好lynncui在期间独挡一面过掉D。最终成绩不好，然而没有遗憾，从不遗憾。<br>相比之下，来自全球的队伍让我看到了很强大的实力，每一道题都有人过，包括SJTU欺骗性提交的H都被人干掉了。身为地球人我感到自豪。<br>WF之旅很奢华（Sample: 1300一晚的酒店，99一顿的早餐），活动很多，服务很好。但最终念念不舍的是各位一见如故的朋友们，至于为什么一见如故我也不得而知。按HH师傅说，That‘s what ACM brings to us。也感激于HH师傅作为浙大教练，却为我们摄下了更多的赛场瞬间。<br>早早就打算把今年作为退役战，因为我相信，大学生涯完全耗散在一门竞赛上是不太妥当的事情。然这次的经历让我特别舍不得各路朋友们，如果有机会还是很想拉大伙喝一些酒，谈一下天。虽说退役，此后我仍然会找有趣的题目做做，仍然会投入很多时间在算法之中，但不再关心比赛的事情。<br>最后一天，脑海里全是这两年ACM生涯的片段。其实早就想记下ACM生涯中复杂的情绪，可担心把事情说得太明白会破坏一些友谊。如今想来，倘若批判不是直白的，那么赞美就是没有意义的。<br>初出茅庐<br>刚踏入大学校门的时候，并没有听说过ACM。跟班里大都数同学一样，大一接触C语言，但中学时候对ASP和Flash的AS比较熟悉。大一被fyj老师看中，进了一个研究生为主的项目团队，并没有给我什么任务，只让我学东西，事实上也没学什么东西，倒是里头一个师兄给我接了一些私活，我一个人包做ASP的商城、论坛之类，完成一项大概花三个星期，报酬1000+。赚了一些钱之后就翘了一大片课，买机票去厦门跟前女友过日子。回想起来觉得有点不可思议。那时候确实过得很潇洒，平时做各种各样喜欢做的事情，班里还有人拜我为师学吉他。<br>大一上学期的期末，跟4h去喝酒的时候他首次提起ACM（其实他指的是OJ），我马上表示这是一种很有趣的事物，公平而富有挑战性。当晚回去就跑到HDOJ尝试，下面这个是处女交。<br>419087    2007-12-04 20:19:32    Wrong Answer    1000    0MS    0K    82 B    C    3xian</p>
+<p>PS：HDOJ的A+B确实比较折腾，对于不了解OJ模式的人来说，哪里知道用EOF来做什么。<br>接下来的几天很快就做掉了最大子串和，高精度加法什么的。当初想按题号顺序做，很容易想象，活生生被1007卡死了（二维最近欧几里得点对）。那时候大号小号一共交了两百多次，最后是给水过去的——随便按两个方向排序，然后只比较相邻的点。话说回来，即便是水过去已经不容易了，一个不知算法为何物的土人，要想出经典的分治法和扫面线法都是不太可能的事情，更别说线性筛法。而这个题目给我的最大启发是：原来C语言有qsort这种东西。<br>晚些找4h单挑了几次，随机抽题号，比谁AC得快，战战兢兢地全胜。<br>入队<br>第二个学期的时候，在公共垃圾桶里瞄见了一张ACM队招新传单，是的，是垃圾桶，我把它从垃圾桶里掏出来了。必须的，跟4h一起去面试。问，挂过科没有。 我说我挂了历史之类的。（其实还挂了高数，但是“之类”是一个海纳百川的辞法……所以不算欺骗。一年之后领队发现我挂过高数，一脸想踢我出队的样子。）接着，我被考到快排的时间复杂度，4h抢答nlogn。我说，我已经在杭电做了一百题了，够不。曰，到时候看你校赛的表现。<br>后来校赛拿了第3名，前两名大三的至今搞不清是谁。其实校赛里头有一道最大子串和，我没读懂题意，否则估计就夺冠了？反正是顺利入队，并直接被扔去省赛作敢死队。当时我跟领队说过这样一句话让他觉得特无聊，我说，明年的这个时候我肯定是我们学校最猛的。<br>另外当时队里最受宠的是06级的wjs，我又悄悄跟4h说，明年的这个时候，06级最猛的不是wjs，而是ccf。<br>ziliang<br>不得不提到这个人。ziliang是广工ACM近代史的鼻祖，07年为广工夺得了的地区赛的首牌和首银。一路以来给我们指引方向，尽管细节上没指点太多，其实也没必要指点太多。在我看来他的思维能力比现在的一批人高一个档次，估计也是属于百年孤独的类型。<br>从我入队开始ziliang就开始忽悠每一个人。比如一开始假装师姐来掏我们的底细，当时她（他）问我是不是搞过OI，我答：OI？OJ吧……<br>然ziliang的影响力之大也造成了不好的影响。队里的人都膜拜他，膜拜到每天都陪他在Q群里吹水。平均下来每天要吹两三个小时甚至更多，这算不算是变相自杀。早期我试图融入这样一种氛围，毕竟孤立难以生存。后来发现融得很不舒服，权衡之后选择了屏蔽Q群。事实上队里的这种现象归根结底跟ziliang是无关的，不是他不知道自己在干什么，而是各位队员不知道自己在干什么。<br>周赛<br>进队之后我们新生被组织起来参加周赛，也正是从这个时候开始，刚进队的我就对整个团队失去了归属感。本来按我入队时候的实力来说，甩开第二名几题应该没有什么问题，但事实上有时候我连冠军的位置都不保。是的，从网上找代码作弊的人太多了。不想点名也没必要点名，男生很猖狂，女生也很猖狂。当时我看到很多可悲的现象，比如有些没作弊的人因为被人狂虐而丧失信心而淡出ACM，比如有的人自己作弊之后私底下还跟我说谁谁谁作弊，比如带队老师根本就不关心我们这儿发生了什么。总的来说就是，广工当时这么菜的ACM队，大家居然还挖空心思通过坑自己人来满足那点可怜的虚荣，真他妈作孽。<br>最初参加周赛的时候，我是无比的紧张，无比的投入，以至于后来无比的失望。之后无论是各种周赛，我看到ranklist上熟悉的账号们我就不想再摸键盘。去年秋天我收取集训总结的时候看到很多人都说我周赛的时候总是“火星般消失”，这个简单的原因，没人体会得到。<br>尽管如此，周赛之中还是有一些搞笑的回忆，比如Lynncui敢于随机敢于打表，比如wjs用一次不回溯的DFS水过了最短路，比如yqj企图用long double过各种高精度，比如我大一比赛的时候“发明“了Prim、Disjoint Set，比如我从牙缝里刷出芝麻的时候才发现爸爸妈妈在我周赛的时候做了各种补充能量的点心。<br>长进<br>从开始到现在，我迷恋于算法，而最终并没有成为一个优秀的ACMer。这一点跟ziliang相反，他不喜欢站在巨人肩上，他知道比赛最重要的是战术和技巧。必须要看到，玩ACM跟玩算法是不同的事情，ACM是考验智慧、考验综合素质的，我敢大言不惭地说，ACM玩得好甚至不需要去刻意学什么算法。虽然我们偶尔见到一些题目需要一些成熟的经典的算法，那些题目是我喜欢的题目，但是那些题目属于最垃圾的ACM题目。另一角度来说，很多人觉得自己ACM出成绩了就代表自己算法不错了，这是一种错误观念，当你深入任何一个方向的算法领域的时候，你会发现ACM那点东西太小儿科了，太不入流了。说白了，ACM是打着算法的幌子来让大家比脑子。<br>粗略统计，鄙人两年来做题1.6K，看国内外论文200+，看书十来本。最终变成现在这个样子……什么样子我自己就不评论了，你觉得是什么样子就是什么样子。<br>对于ACMer来说，Matrix67早已放过话，“USACO你老老实实一个字也别看解题报告，做完你就无敌了”。我们随处可见一些做了很多很多题目实力还上不去的人，此类八成是是有看解题报告的习惯，其中包括想都没想就冲进discuss里头瞄来瞄去。<br>不由得想起一个人。08年秋天，ACM圈子冒出了一个博客点击率很高的家伙，叫zfy。他的出现让不少人长了见识，不得不表示称赞。本来他是一个作风不错的人，但是在一定程度上让一些人养成了新的坏习惯——做不出题就找论文，这跟找解题报告有什么区别呢，就名字不同。我们学校肯定也有人觉得，三鲜是不是脑子被驴舔了，做个破题用不用看那么多论文。事实上我基本不在做题的时候碰论文，倘若两者糅合在一起，最终结果基本就是这头感受不到论文的内涵，那头题目也白做了。<br>其实在我们这种环境下提高还是比较不容易的，一来身边没什么人可以提供帮助，二来各路大牛也不喜欢搭理菜鸟。很多时候就需要死磕，一个人死磕。记得当初通宵磕V图，通宵磕动态树，过年回老家旁边开几围麻将窗外小屁孩放炮竹我在黑灯瞎火翻译后缀树。如之前所说这些东西其实跟ACM关系不大，但我心里总会有一种感觉，人家OI的娃们随手拈来的东西你写不出来就没法跟人家比。好比08年地区赛的网络赛那回，人家纷纷秒杀的题目，我们全校没一个人听说过那些个算法的名字。<br>后来比赛经历得多了，也慢慢给自己有了定位。时常在网上看到很多人比完赛唉声叹气，也有些人号称“本来有夺金的实力”、“没发挥好”。我曾经也有段时间神勇地跑去做掉很多难题，一度以为自己到了登堂入室的水平，后来发现完全不是这么一回事。真正的高手是什么样的，他们不需要吃饭时候的冥想，不需要靠洗澡时候的灵光一闪，他们比赛的时候坐在那儿就能熟练地做出各种难题，他们在读错题的时候能保证成绩，在数据错的时候能保证成绩，在没人敢提交的时候果断提交，在比赛快结束的时候冷静编码。简单来说就是，他们不仅仅是做题能力强，而更是综合素质强。比赛之后说太多“本来”、“如果”的人，属于心理素质欠佳，这是综合素质重要的一块，也是阻碍长进的一块。因此，当你没有达到预期的目标，根本就不应该想着你丢了一块牌，而应该想想自己是否真的值那一块牌。<br>境内境外<br>这个话题我以前写过，但是删掉了。<br>国内的ACM圈子总是表现出一种浮躁的风气，尽管不缺乏超强的人，但强人都很低调，或者说，强校更多是闭门造车。可以去看看国内ACM最火的POJ论坛，琳琅满目的欠揍的东西：求/贴数据的、求/贴代码的、叫人家来查错的、日题目的、炫耀的、留名的、二三流人物相互膜拜的。看看站内信，多少是求代码的（我的原则是问我思路的一定悉心回答，要代码的一律无视）。再看看百度到的解题报告，多少是相互抄袭不求甚解的。<br>而国外，我不敢说得太完美，毕竟我对国外了解不算太多。首先一点，国外的OJ很少上述欠揍的东西。自从把做题重心放到国外的OJ，用邮件跟一些外国选手联系得越来越多，他们发邮件的时候会非常严谨，几乎每一句都会给出证明，至少会有一个简单的交代，有时候附件里头会附上几篇论文。他们从来不贴代码，但如果你脑筋实在转不过来，人家会问你是否需要代码。尤其是在SPOJ，我结识了俄罗斯/巴西/印度/美国/加拿大的朋友们，感谢他们给我带来的所有的解题思路的启发和做人态度的启发。这里说一个小插曲，曾经有一位朋友赐我两篇俄文的极品论文，全文翻译成中文之后俨然成为天书，全文翻译成英文之后仍然是天书，人肉翻译成中文还是读不下去，最终人肉翻译成英文然后反复阅读，终有所成……当时的壮举让宿舍里直呼我是世界级一流选手。<br>我认为，国内信息学竞赛成绩强劲，而IT行业不见得强，从ACM这块就看出端倪。我们这儿大环境是明显不如人的。我作一个不负责任的假设，假设全球所有闭门造车的经典强校都不准参加ACM比赛，那中国队伍就是集体被虐。而行业的发展并不能仅仅依靠强校的寥寥数人。<br>Lynncui<br>该讲讲我的队友了。首先最要感谢的就是队友Lynncui，一直以来他对我都无比信任，而我却总是在比赛的关键时刻表现出毛躁的一面，在此表示愧疚。由于Lynncui年纪偏小，我很奇妙地见证了他这两年从一个胡闹的毛孩变为成熟青年的过程。在我们还没入队的时候，招新群里最高调的就是他，我很清楚地记得当时他咬定PE是因为源代码格式不对……于是我直接把他归为傻逼一类，万没想到Lynncui在未来会成为我最最好的搭档。<br>他属于很清楚自己在做什么的人，因此没有动不动就看discuss、解题报告的陋习。尽管我有时候觉得他比较懒，并没有花太多的精力在ACM之中，但由于他的清醒和踏实，只要做一点，就能进步一点，只要花心思，就能见效果。我在我们学校讨论问题，基本上除了ziliang我就只找过Lynncui。无论是练习还是比赛，他都能保持清晰的思路，尽管有时候向他灌输一种新思想会感觉他硬得像石头一样。于是我们队有一招最常用最有效的战术：我有想法了就往Lynncui脑袋里灌……艰难地让他认可之后基本上就是无误的，然后他坐我旁边看着我写，一交一个准。不幸的是WF的后半场我自己已经坐不稳了，也没能说服他什么。<br>当然，Lynncui的个人实力也不是盖的，他的强项就是以穷人的身份参加各种编程比赛赢取衣服。上次GCJ好像排一百多名来着。<br>不管怎么说，以他的做事习惯来看，以后肯定不差钱。<br>4h<br>这是我最老的搭档，我的每一场ACM比赛都跟他相伴。同时他是我的酒友和玩伴，相比之下ACM队友这个身份反倒是有点逊色。4h入队时候的天赋和知识背景都是很高的，但似乎终究没把ACM当回事。而且怎么说呢，做题比较急功近利，以至于后期进步不明显。曾经瞅见他下数据之后把过不了的数据直接打表AC的猥琐事……甚是愤慨。不管怎么说，他一直能轻松地留在TEAM ONE，这就是他的本事，换个角度看，也是广工ACM队的悲哀。<br>对我来说，4h在我的大学生涯扮演者重要的角色。如果不是他跟我喝酒，晚上跟我到处去玩，广工这地方真的不容易呆下去。<br>DieIng<br>这又是一个很信任我的人，感谢他。广工里头，DieIng对ACM的热情仅亚于我，混迹于各大ACM神群，膜拜过各路神牛。DieIng比我们3个晚几个月进入集训队，几乎没有计算机的基础。这家伙也有不少坏习惯，但是特别勤奋，以至于有今天的成绩。我们集训队里大家听得最多的一句话就是DieIng说：又被三鲜鄙视了。我总喜欢挑他的坏毛病，因为我不忍心看着他的热情在做无用功，但他好像觉得特委屈。<br>在很长一段时间里，广工就只有我们4个在继续走ACM的路（而且4个还都是同一届，这种狗屎状况今年地区赛还两个队伍夺金，玄妙无比），忘记是谁给我们起了个绰号，曰，四大护法。于是DieIng总是最不幸的，因为一个队是3个人，而他总被排在第4，搞得他的队友要么就是老东西，要么就是小朋友。而我觉得，是DieIng没有冲破自己的那一关，只要他敢站出来朝领队说一句，我不信我比他们3个弱！那么数轮PK之后淘汰的也不一定是他。<br>去年我本来打算跟DieIng组队，毕竟2+2比3+1显得有点人性，但最终领队为了成绩还是选择了3+1。还记得跟DieIng为数不多的组队练习中，只要是个题他都说是网络流……没想到后来DieIng领衔出征的哈尔滨地区赛还真的出现了网络流，并且一出就是两道，毫无悬念地，立马就被我们Dieling童鞋秒杀，顺利夺金。这事太不可思议，但无论如何，在自己专注的事情之中取得好成绩是可喜可贺的事情，表示热烈祝贺DieIng。<br>招新<br>去年我们ACM队招新，挺滑稽，主力都是大二，招的都是大一。更滑稽的是，我大一时候从垃圾桶里掏出来的招新传单被委任由我来重新设计。当时设计得很精致，还有淡雅背景（打印出来就不见了……），弄了一个赛马的面试题来吸引新生（假装考智力，其实是刷掉那些从网上抄答案的家伙）。<br>由于宣传到位，面试的时候来了两百多人，但领队采取了一种愚蠢的模式——分成5条队，分别打分。我心想，我们这儿入门的人都不够5个。之后果然就出现了更愚蠢的事情。当时要求是给每个人打几个分，各项满分是10分，而除了我和DieIng这条队之外，每条队打的分全是7分/7.5分/8分，我当时差点就对其他4个队的人爆粗，这到底是搞永不落空的抽奖还是什么，作为一个筛选环节，优秀的人就应该给9分10分，不行的人就应该大胆往低分打，0分都没有任何问题。最终就是大多数人都无法区分，采取随机晋级。<br>招进来的这帮人如今已经是大二了，我没见到有太大成绩。我曾经多次跟他们强调，要把我们的BBS利用起来，大家一起进步才能进步，至今还是凄冷一片。至今这一批人也没有跟我探讨过任何算法问题，仅仅是偶尔找我帮他们的代码查错，找我要标程。<br>罢。<br>往后<br>以后ACM的事情跟我没太大关系。<br>就我认识的人来说，明年出线埃及几率很大的有梦翅@UESTC、小胡浩@HDU、t__nt@ZJU（这个没悬念吧）。祝他们达到自己的目标，埃及肯定比国内好玩。<br>最后<br>我还是在想，如果当年我不去掏垃圾筒里的招新传单，一切又会是什么样子。</p>
 
           
         
@@ -522,7 +867,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -583,7 +928,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
 
 
 
@@ -682,6 +1027,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
 
   
 
