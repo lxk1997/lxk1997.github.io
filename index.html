@@ -232,6 +232,246 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/29/ADT - 顺序队列（Squencial Queue）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chook's Dream">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/29/ADT - 顺序队列（Squencial Queue）/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-29T16:28:18+08:00">
+                2017-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>title: ADT - 顺序队列（Squencial Queue）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line">//ADT  Squencial Queue</div><div class="line"></div><div class="line">#define     OK                            1</div><div class="line">#define     ERROR                     0</div><div class="line">#define     TRUE                        1</div><div class="line">#define     FALSE                       0</div><div class="line">#define     OVERFLOW            -1</div><div class="line">#define     MAXQSIZE            100</div><div class="line">#define     INCREASEQSIZE    10</div><div class="line"></div><div class="line">typedef int QElemType;</div><div class="line">typedef int Status;</div><div class="line"></div><div class="line">typedef struct &#123;</div><div class="line">    QElemType *base;</div><div class="line">    int front;//头指针</div><div class="line">    int reer;//尾指针</div><div class="line">    int length;//队列长度</div><div class="line">&#125;SqQueue;</div><div class="line"></div><div class="line">//构造一个空队列</div><div class="line">Status InitQueue(SqQueue &amp;Q) &#123;</div><div class="line">    Q.base = (QElemType *)malloc(MAXQSIZE * sizeof(QElemType));</div><div class="line">    if(!Q.base) exit(OVERFLOW);</div><div class="line">    Q.front = Q.reer = 0;</div><div class="line">    Q.length = MAXQSIZE;</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//销毁队列Q</div><div class="line">Status DestroyQueue(SqQueue &amp;Q) &#123;</div><div class="line">    free(Q.base);</div><div class="line">    Q.front = Q.reer = 0;</div><div class="line">    Q.length = 0;</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//清空队列</div><div class="line">Status ClearQueue(SqQueue &amp;Q) &#123;</div><div class="line">    Q.front = Q.reer = 0;</div><div class="line">    Q.length = 0;</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//插入元素</div><div class="line">Status EnQueue(SqQueue&amp;Q, QElemType e) &#123;</div><div class="line">    if((Q.reer+1)%Q.length == Q.front) &#123;</div><div class="line">        Q.base = (QElemType *)realloc(Q.base, sizeof(QElemType) * (Q.length + INCREASEQSIZE));</div><div class="line">        Q.length += INCREASEQSIZE;</div><div class="line">    &#125;</div><div class="line">    Q.base[Q.reer] = e;</div><div class="line">    Q.reer = (Q.reer + 1) % Q.length;</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//删除元素</div><div class="line">Status DeQueue(SqQueue &amp;Q,QElemType &amp;e) &#123;</div><div class="line">    if(Q.front == Q.reer) return ERROR;</div><div class="line">    e = Q.base[Q.front];</div><div class="line">    Q.front = (Q.front + 1) % Q.length;</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//判断队列是否为空</div><div class="line">Status QueueEmpty(SqQueue Q) &#123;</div><div class="line">    if(Q.front == Q.reer) return TRUE;</div><div class="line">    return FALSE;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//求队列长度</div><div class="line">int QueueLength(SqQueue Q) &#123;</div><div class="line">    return (Q.reer - Q.front + Q.length) % Q.length;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//求队头元素的值</div><div class="line">Status GetHead(SqQueue Q, QElemType &amp;e) &#123;</div><div class="line">    if(Q.front == Q.reer) return ERROR;</div><div class="line">    e = Q.base[Q.front];</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//遍历</div><div class="line">Status QueueTraverse(SqQueue Q) &#123;</div><div class="line">    for(int i = Q.front; i != Q.reer; i = (i + 1) % Q.length) &#123;</div><div class="line">        if(i == Q.front) cout &lt;&lt; Q.base[i];</div><div class="line">        else cout &lt;&lt; &apos; &apos; &lt;&lt; Q.base[i];</div><div class="line">    &#125;</div><div class="line">    cout &lt;&lt; endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/29/ADT - 链式队列（LinkQueue）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chook">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chook's Dream">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/29/ADT - 链式队列（LinkQueue）/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-29T16:26:38+08:00">
+                2017-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>title: ADT - 链式队列（LinkQueue）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div></pre></td><td class="code"><pre><div class="line">//ADT  LinkQueue</div><div class="line"></div><div class="line">#define     OK                     1</div><div class="line">#define     ERROR              0</div><div class="line">#define     TRUE                 1</div><div class="line">#define     FALSE               0</div><div class="line">#define     OVERFLOW     -1</div><div class="line"></div><div class="line">typedef int QElemType;</div><div class="line">typedef int Status;</div><div class="line"></div><div class="line">typedef struct QNode &#123;</div><div class="line">    QElemType data;</div><div class="line">    struct QNode *next;</div><div class="line">&#125;QNode, *QueuePtr;</div><div class="line"></div><div class="line">typedef struct &#123;</div><div class="line">    QueuePtr front;//头指针</div><div class="line">    QueuePtr reer;//尾指针</div><div class="line">&#125;LinkQueue;</div><div class="line"></div><div class="line">//构造一个空队列</div><div class="line">Status InitQueue(LinkQueue &amp;Q) &#123;</div><div class="line">    Q.front = Q.reer = (QNode *)malloc(sizeof(QNode));</div><div class="line">    if(!Q.front) exit(OVERFLOW);</div><div class="line">    Q.front-&gt;next = NULL;</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//销毁队列Q</div><div class="line">Status DestroyQueue(LinkQueue &amp;Q) &#123;</div><div class="line">    QueuePtr p = Q.front, postp;</div><div class="line">    while(p) &#123;</div><div class="line">        postp = p-&gt;next;</div><div class="line">        free(p);</div><div class="line">        p = postp;</div><div class="line">    &#125; </div><div class="line">    Q.front = Q.reer = NULL;</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//清空队列</div><div class="line">Status ClearQueue(LinkQueue &amp;Q) &#123;</div><div class="line">    Q.reer = Q.front;</div><div class="line">    Q.front-&gt;next = NULL;</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//插入元素</div><div class="line">Status EnQueue(LinkQueue&amp;Q, QElemType e) &#123;</div><div class="line">    QueuePtr p = (QNode *)malloc(sizeof(QNode));</div><div class="line">    if(!p) exit(OVERFLOW);</div><div class="line">    p-&gt;data = e;</div><div class="line">    p-&gt;next = NULL;</div><div class="line">    Q.reer-&gt;next = p;</div><div class="line">    Q.reer = p;</div><div class="line">    return OK; </div><div class="line">&#125;</div><div class="line"></div><div class="line">//删除元素</div><div class="line">Status DeQueue(LinkQueue &amp;Q,QElemType &amp;e) &#123;</div><div class="line">    if(Q.front == Q.reer) return ERROR;</div><div class="line">    QueuePtr p = Q.front-&gt;next;</div><div class="line">    e = p-&gt;data;</div><div class="line">    Q.front-&gt;next = p-&gt;next;</div><div class="line">    if(Q.reer == p) &#123;</div><div class="line">        Q.reer = Q.front;</div><div class="line">    &#125;</div><div class="line">    free(p);</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//判断队列是否为空</div><div class="line">Status QueueEmpty(LinkQueue Q) &#123;</div><div class="line">    if(Q.front == Q.reer) return TRUE;</div><div class="line">    return FALSE;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//求队列长度</div><div class="line">int QueueLength(LinkQueue Q) &#123;</div><div class="line">    int cnt = 0;</div><div class="line">    QueuePtr p = Q.front-&gt;next;</div><div class="line">    while(p) &#123;</div><div class="line">        cnt++;</div><div class="line">        p = p-&gt;next;</div><div class="line">    &#125;</div><div class="line">    return cnt;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//求队头元素的值</div><div class="line">Status GetHead(LinkQueue Q, QElemType &amp;e) &#123;</div><div class="line">    if(Q.front == Q.reer) return ERROR;</div><div class="line">    QueuePtr p = Q.front-&gt;next;</div><div class="line">    e = p-&gt;data;</div><div class="line">    free(p);</div><div class="line">    return OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//遍历</div><div class="line">Status QueueTraverse(LinkQueue Q) &#123;</div><div class="line">    QueuePtr p = Q.front-&gt;next;</div><div class="line">    while(p) &#123;</div><div class="line">        if(p == Q.front-&gt;next)cout &lt;&lt; p-&gt;data;</div><div class="line">        else cout &lt;&lt; &apos; &apos; &lt;&lt; p-&gt;data;</div><div class="line">        p = p-&gt;next;</div><div class="line">    &#125;</div><div class="line">    cout &lt;&lt; endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/UVA - 10382 Watering Grass （贪心+区间覆盖）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -867,7 +1107,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
